@@ -1,0 +1,61 @@
+// Example configuration for LaTeX Suite
+// Copy these settings to your VS Code settings.json to customize snippet behavior
+
+{
+  // Enable or disable built-in snippets
+  "latexSuite.enableBuiltinSnippets": true,
+
+  // Characters that trigger delimiter-mode snippets
+  "latexSuite.delimiterChars": " \n\t.,;:!?)]}'\"",
+
+  // User-defined snippets
+  "latexSuite.snippets": [
+    // Example: infinity symbol (immediate mode, math only)
+    {
+      "trigger": "oo",
+      "replacement": "\\infty",
+      "mode": "immediate",
+      "mathOnly": true
+    },
+    
+    // Example: vector with placeholder (delimiter mode, math only)
+    {
+      "trigger": "vec",
+      "replacement": "\\vec{${1}}$0",
+      "mode": "delimiter",
+      "mathOnly": true
+    },
+    
+    // Example: matrix environment (delimiter mode, math only)
+    {
+      "trigger": "pmat",
+      "replacement": "\\begin{pmatrix}\n\t${1}\n\\end{pmatrix}$0",
+      "mode": "delimiter",
+      "mathOnly": true
+    },
+    
+    // Example: partial derivative (delimiter mode, math only)
+    {
+      "trigger": "pd",
+      "replacement": "\\frac{\\partial ${1}}{\\partial ${2}}$0",
+      "mode": "delimiter",
+      "mathOnly": true
+    },
+    
+    // Example: double integral (delimiter mode, math only)
+    {
+      "trigger": "dint",
+      "replacement": "\\int\\int ${1} \\, d${2:x} \\, d${3:y}$0",
+      "mode": "delimiter",
+      "mathOnly": true
+    },
+    
+    // Example: section command (delimiter mode, text mode)
+    {
+      "trigger": "sec",
+      "replacement": "\\section{${1}}$0",
+      "mode": "delimiter",
+      "mathOnly": false
+    }
+  ]
+}

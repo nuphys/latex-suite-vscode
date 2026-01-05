@@ -67,27 +67,31 @@ export class SnippetExpander {
 
         // Try to match snippets
         for (const snippet of snippets) {
-            // Check if the text before cursor ends with the trigger
-            if (!textBeforeCursor.endsWith(snippet.trigger + typedChar)) {
-                continue;
-            }
-
             // Determine if we should expand based on mode
             let shouldExpand = false;
+            let matchFound = false;
 
             if (snippet.mode === 'immediate') {
-                // For immediate mode, expand if we just completed the trigger
-                shouldExpand = textBeforeCursor.endsWith(snippet.trigger + typedChar) && 
-                               typedChar === snippet.trigger[snippet.trigger.length - 1];
+                // For immediate mode, check if we just completed the trigger
+                // The typed char should be the last character of the trigger
+                if (textBeforeCursor.endsWith(snippet.trigger) && 
+                    typedChar === snippet.trigger[snippet.trigger.length - 1]) {
+                    shouldExpand = true;
+                    matchFound = true;
+                }
             } else if (snippet.mode === 'delimiter') {
-                // For delimiter mode, expand if typed char is a delimiter
-                shouldExpand = Config.isDelimiterChar(typedChar);
+                // For delimiter mode, check if trigger + delimiter was typed
+                if (textBeforeCursor.endsWith(snippet.trigger + typedChar) &&
+                    Config.isDelimiterChar(typedChar)) {
+                    shouldExpand = true;
+                    matchFound = true;
+                }
             } else {
                 // Manual mode - don't auto-expand
                 continue;
             }
 
-            if (!shouldExpand) {
+            if (!matchFound || !shouldExpand) {
                 continue;
             }
 

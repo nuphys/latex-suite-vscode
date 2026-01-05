@@ -145,21 +145,24 @@ export class MathModeDetector {
             return { inMath: false, inComment: true };
         }
 
+        // Get text up to current position in the document
+        const textUpToPosition = fullText.substring(0, offset);
+
         // Check various math mode delimiters
         // Priority: $$ before $, then \( \), then \[ \], then environments
         
         // Check display math first ($$)
-        if (this.isInDisplayMath(fullText.substring(0, offset), offset - (offset - lineOffset))) {
+        if (this.isInDisplayMath(textUpToPosition, textUpToPosition.length)) {
             return { inMath: true, inComment: false };
         }
 
         // Check inline math ($)
-        if (this.isInInlineMath(fullText.substring(0, offset), offset - (offset - lineOffset))) {
+        if (this.isInInlineMath(textUpToPosition, textUpToPosition.length)) {
             return { inMath: true, inComment: false };
         }
 
         // Check \( \) and \[ \]
-        if (this.isInParenBracketMath(fullText.substring(0, offset), offset - (offset - lineOffset))) {
+        if (this.isInParenBracketMath(textUpToPosition, textUpToPosition.length)) {
             return { inMath: true, inComment: false };
         }
 
