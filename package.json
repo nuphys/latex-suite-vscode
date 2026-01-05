@@ -4,6 +4,11 @@
   "description": "LaTeX snippets and auto-replacement for efficient LaTeX editing",
   "version": "0.1.0",
   "publisher": "nuphys",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuphys/latex-suite-vscode.git"
+  },
   "engines": {
     "vscode": "^1.75.0"
   },
