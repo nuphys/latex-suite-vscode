@@ -1,0 +1,88 @@
+{
+  "name": "latex-suite",
+  "displayName": "LaTeX Suite",
+  "description": "LaTeX snippets and auto-replacement for efficient LaTeX editing",
+  "version": "0.1.0",
+  "publisher": "nuphys",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuphys/latex-suite-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:latex"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "latexSuite.expandAtCursor",
+        "title": "LaTeX Suite: Expand snippet at cursor"
+      }
+    ],
+    "configuration": {
+      "title": "LaTeX Suite",
+      "properties": {
+        "latexSuite.snippets": {
+          "type": "array",
+          "default": [],
+          "description": "User-defined snippets. Each snippet should have 'trigger', 'replacement', 'mode' (immediate/delimiter/manual), and optional 'mathOnly' (boolean).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "trigger": {
+                "type": "string",
+                "description": "The text that triggers the snippet"
+              },
+              "replacement": {
+                "type": "string",
+                "description": "The replacement text (supports VS Code snippet syntax)"
+              },
+              "mode": {
+                "type": "string",
+                "enum": ["immediate", "delimiter", "manual"],
+                "description": "When the snippet should expand"
+              },
+              "mathOnly": {
+                "type": "boolean",
+                "description": "Only expand in math mode"
+              }
+            },
+            "required": ["trigger", "replacement", "mode"]
+          }
+        },
+        "latexSuite.delimiterChars": {
+          "type": "string",
+          "default": " \n\t.,;:!?)]}'\"",
+          "description": "Characters that trigger delimiter-mode snippets"
+        },
+        "latexSuite.enableBuiltinSnippets": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable built-in snippet definitions"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
